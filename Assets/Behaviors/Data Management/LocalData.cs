@@ -1,9 +1,12 @@
-public class LocalData
+namespace DarkFramework
 {
-    public bool m_CompletedTutorial;
-
-    public void ClampVariables()
+    public class LocalData
     {
+        public bool m_CompletedTutorial;
+
+        public void ClampVariables()
+        {
         
+        }
     }
 }

@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -37,8 +35,6 @@ namespace DarkFramework
             }
 
             m_LocalData.ClampVariables(); //Prevents tampering
-
-            Debug.LogError($"<color=olive>Completed tutorial: {m_LocalData.m_CompletedTutorial}</color>");
             WriteLocalFile(); //Writes a new set of data, or overwrites/deletes any unused variables/adds any new variables
         }
         

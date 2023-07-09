@@ -294,7 +294,7 @@ Transform:
   - {fileID: 6553832838023575136}
   - {fileID: 5483619351176198816}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4957089274326769645
 MonoBehaviour:
@@ -867,6 +867,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5017846634380418616}
     m_Modifications:
+    - target: {fileID: -1753713271442333595, guid: cee83ee16ef4d6e47ae92ff54fd8e0bf, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5034665227553205121, guid: cee83ee16ef4d6e47ae92ff54fd8e0bf, type: 3}
       propertyPath: m_Name
       value: Display Camera
