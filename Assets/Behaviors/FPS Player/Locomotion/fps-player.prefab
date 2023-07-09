@@ -498,7 +498,7 @@ Transform:
   - {fileID: 1004735187854191017}
   - {fileID: 3776035090998393063}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2046423524827959589
 MonoBehaviour:
@@ -513,6 +513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Initialized: 0
+  m_CenterEyeAnchor: {fileID: 680578166132795466}
 --- !u!1 &6828572789016751835
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,10 +1550,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7594223546582421519}
     m_Modifications:
-    - target: {fileID: -1753713271442333595, guid: cee83ee16ef4d6e47ae92ff54fd8e0bf, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5034665227553205121, guid: cee83ee16ef4d6e47ae92ff54fd8e0bf, type: 3}
       propertyPath: m_Name
       value: Display Camera
@@ -1602,29 +1599,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8551275376104831751, guid: cee83ee16ef4d6e47ae92ff54fd8e0bf, type: 3}
-      propertyPath: m_LeftEyeAnchor
+      propertyPath: m_FpsPlayer
       value: 
-      objectReference: {fileID: 8089323406752595464}
-    - target: {fileID: 8551275376104831751, guid: cee83ee16ef4d6e47ae92ff54fd8e0bf, type: 3}
-      propertyPath: m_leftEyeAnchor
-      value: 
-      objectReference: {fileID: 3521118511413811728, guid: dfb2c2c93df01af4a8b7a206e34067f5, type: 3}
-    - target: {fileID: 8551275376104831751, guid: cee83ee16ef4d6e47ae92ff54fd8e0bf, type: 3}
-      propertyPath: m_RightEyeAnchor
-      value: 
-      objectReference: {fileID: 6414365592820357419}
-    - target: {fileID: 8551275376104831751, guid: cee83ee16ef4d6e47ae92ff54fd8e0bf, type: 3}
-      propertyPath: m_rightEyeAnchor
-      value: 
-      objectReference: {fileID: 3515450913714642363, guid: dfb2c2c93df01af4a8b7a206e34067f5, type: 3}
-    - target: {fileID: 8551275376104831751, guid: cee83ee16ef4d6e47ae92ff54fd8e0bf, type: 3}
-      propertyPath: m_CenterEyeAnchor
-      value: 
-      objectReference: {fileID: 680578166132795466}
-    - target: {fileID: 8551275376104831751, guid: cee83ee16ef4d6e47ae92ff54fd8e0bf, type: 3}
-      propertyPath: m_centerEyeAnchor
-      value: 
-      objectReference: {fileID: 2253048353460879800, guid: dfb2c2c93df01af4a8b7a206e34067f5, type: 3}
+      objectReference: {fileID: 2046423524827959589}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
