@@ -1,13 +1,15 @@
-using DarkFramework;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+namespace DarkFramework
 {
-    private SpawnPoints m_spawnPoints;
-
-    private void Start()
+    public class LevelManager : MonoBehaviour
     {
-        m_spawnPoints = FindObjectOfType<SpawnPoints>();
-        FPSPlayer.Instance.Teleport(m_spawnPoints.GetNextSpawn());
+        private SpawnPoints m_spawnPoints;
+
+        private void Start()
+        {
+            m_spawnPoints = FindObjectOfType<SpawnPoints>();
+            FPSPlayer.Instance.Teleport(m_spawnPoints.GetNextSpawn());
+        }
     }
 }
