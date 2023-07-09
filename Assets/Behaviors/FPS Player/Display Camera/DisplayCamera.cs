@@ -5,6 +5,8 @@ namespace DarkEngine
 {
     public class DisplayCamera : MonoBehaviour
     {
+        public Canvas m_Canvas;
+    
         public Transform m_leftEyeAnchor;
         public Transform m_rightEyeAnchor;
         public Transform m_centerEyeAnchor;
@@ -15,6 +17,7 @@ namespace DarkEngine
         private void Awake()
         {
             m_transform = transform;
+            m_Canvas.gameObject.SetActive(true);
         }
 
         private void Start()

@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e13556e03be28e94fa22c0d812a7fc72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Canvas: {fileID: 3821449546476931445}
   m_leftEyeAnchor: {fileID: 0}
   m_rightEyeAnchor: {fileID: 0}
   m_centerEyeAnchor: {fileID: 0}
@@ -440,7 +441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7816922395384587593
 RectTransform:
   m_ObjectHideFlags: 0
