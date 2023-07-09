@@ -1,9 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
-using DarkFramework;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
 
 namespace DarkFramework
 {
@@ -19,11 +18,22 @@ namespace DarkFramework
             StartCoroutine(IELoadScene());
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                LoadScene();
+            }
+        }
+
         private IEnumerator IELoadScene()
         {
-            yield return null;
+            AsyncOperationHandle<SceneInstance> op = Addressables.LoadSceneAsync(m_Playground);
 
-            Addressables.LoadSceneAsync(m_Playground);
+            while (!op.IsDone)
+            {
+                yield return null;
+            }
         }
     }
 }
