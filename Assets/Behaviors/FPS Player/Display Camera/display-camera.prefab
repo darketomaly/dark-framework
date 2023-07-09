@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 8551275376104831751}
   - component: {fileID: -1753713271442333595}
   m_Layer: 0
-  m_Name: Display Camera
+  m_Name: display-camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
