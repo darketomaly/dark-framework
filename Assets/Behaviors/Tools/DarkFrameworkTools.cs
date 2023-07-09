@@ -4,7 +4,7 @@ using UnityEditor;
 
 using UnityEngine;
 
-namespace DarkFramework
+namespace DarkFramework 
 {
     public static class DarkFrameworkTools
     {
