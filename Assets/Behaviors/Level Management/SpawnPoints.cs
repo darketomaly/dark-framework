@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
-using Oculus.Interaction;
+using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SpawnPoints : MonoBehaviour
+namespace DarkFramework
 {
-    public Transform[] m_SpawnPoints; 
-    
-    [ContextMenu("Cache spawn points")]
-    private void CacheSpawnPoints()
+    public class SpawnPoints : MonoBehaviour
     {
-        m_SpawnPoints = transform.GetChild(0).GetComponentsInChildren<Transform>();
-    }
+        public Transform[] m_SpawnPoints;
 
-    private Vector3 GetNextSpawn()
-    {
-        return m_SpawnPoints[0].position;
+        [ContextMenu("Cache spawn points")]
+        private void CacheSpawnPoints()
+        {
+            m_SpawnPoints = transform.GetChild(0).GetComponentsInChildren<Transform>();
+            EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+        }
+
+        public Vector3 GetNextSpawn()
+        {
+            return m_SpawnPoints[0].position;
+        }
     }
 }

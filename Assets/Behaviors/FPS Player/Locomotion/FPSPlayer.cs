@@ -41,5 +41,10 @@ namespace DarkFramework
                 transform.GetChild(0).gameObject.SetActive(true);
             }
         }
+
+        public void Teleport(Vector3 floorPosition)
+        {
+            transform.GetChild(0).position = floorPosition + Vector3.up;
+        }
     }
 }

@@ -3,13 +3,12 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
+using UnityEngine.SceneManagement;
 
 namespace DarkFramework
 {
     public class SceneLoadManager : MonoBehaviour
     {
-        public DataManager m_DataManager;
-
         public AssetReference m_Playground;
 
         [ContextMenu("Load Playground")]
@@ -28,11 +27,13 @@ namespace DarkFramework
 
         private IEnumerator IELoadScene()
         {
-            AsyncOperationHandle<SceneInstance> op = Addressables.LoadSceneAsync(m_Playground);
+            AsyncOperationHandle<SceneInstance> environment = Addressables.LoadSceneAsync(m_Playground, LoadSceneMode.Single, false);
 
-            while (!op.IsDone)
+            yield return environment;
+
+            if (environment.Status == AsyncOperationStatus.Succeeded)
             {
-                yield return null;
+                yield return environment.Result.ActivateAsync();
             }
         }
     }

@@ -564,7 +564,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857be0cb44d37e74bad7b16f03a3576d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpawnPoints: []
+  m_SpawnPoints:
+  - {fileID: 2115005308}
 --- !u!4 &807106839
 Transform:
   m_ObjectHideFlags: 0
@@ -1069,7 +1070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0607f0f79ab77b9489c0f544c51fe733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DataManager: {fileID: 0}
   m_Playground:
     m_AssetGUID: 9fc0d4010bbf28b4594072e72b8655ab
     m_SubObjectName: 
