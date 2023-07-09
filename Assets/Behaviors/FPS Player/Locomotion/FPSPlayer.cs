@@ -20,7 +20,7 @@ namespace DarkFramework
                 if (Instance != this)
                 {
                     name += " (Bad clone)";
-                    Debug.LogError($"<color=olive>Destroying {name} because singleton already exists</color>");
+                    Debug.Log($"<color=olive>Destroying {name} because singleton already exists</color>");
                     Destroy(gameObject);
                 }
             }
