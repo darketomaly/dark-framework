@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 4814013542427766600}
   - component: {fileID: 5435077548295212134}
   - component: {fileID: 3527132564044473580}
+  - component: {fileID: 7931091674629734416}
   m_Layer: 0
   m_Name: player-controller
   m_TagString: Untagged
@@ -294,7 +295,7 @@ Transform:
   - {fileID: 6553832838023575136}
   - {fileID: 5483619351176198816}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4957089274326769645
 MonoBehaviour:
@@ -384,6 +385,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
+--- !u!114 &7931091674629734416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901719875089920108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a743740483e1bc34899770515fd75b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4200173732299598896
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,7 +1272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 137383442524578654, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1577,7 +1590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 137977633181334670, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
