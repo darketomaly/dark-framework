@@ -7,9 +7,10 @@ using UnityEngine.SceneManagement;
 
 namespace DarkFramework
 {
-    public class SceneLoadManager : MonoBehaviour
+    public class SceneLoadManager : SingletonMonoBehavior<SceneLoadManager>
     {
         public AssetReference m_Playground;
+        public AssetReference m_Landing;
 
         [ContextMenu("Load Playground")]
         public void LoadScene()
@@ -27,7 +28,8 @@ namespace DarkFramework
 
         private IEnumerator IELoadScene()
         {
-            AsyncOperationHandle<SceneInstance> environment = Addressables.LoadSceneAsync(m_Playground, LoadSceneMode.Single, false);
+            AssetReference targetScene = SceneManager.GetActiveScene().name == "Landing" ? m_Playground : m_Landing;
+            AsyncOperationHandle<SceneInstance> environment = Addressables.LoadSceneAsync(targetScene, LoadSceneMode.Single, false);
 
             yield return environment;
 
