@@ -840,6 +840,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DataManager: {fileID: 107843357}
+  m_Playground:
+    m_AssetGUID: 463f3598a052a984fa071e0469bf7081
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!1 &1837434542
 GameObject:
   m_ObjectHideFlags: 0

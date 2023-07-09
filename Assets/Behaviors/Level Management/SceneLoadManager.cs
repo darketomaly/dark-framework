@@ -22,6 +22,8 @@ namespace DarkFramework
         private IEnumerator IELoadScene()
         {
             yield return null;
+
+            Addressables.LoadSceneAsync(m_Playground);
         }
     }
 }
