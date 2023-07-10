@@ -48,7 +48,18 @@ namespace DarkFramework
 
         private IEnumerator IELoadScene(LeveLReference levelToLoad)
         {
-            AsyncOperationHandle<SceneInstance> environment = Addressables.LoadSceneAsync(m_levelsDictionary[levelToLoad].m_Asset, LoadSceneMode.Single, false);
+            //To do
+            //Unload active scene
+            
+            //If it's not landing
+            //Load environment additive
+            //Load logic scene additive
+            //If it is landing, just load normal
+            
+            //Make this a try catch, in case addressables can't be loaded
+            //So we can display an error if so
+            
+            AsyncOperationHandle<SceneInstance> environment = Addressables.LoadSceneAsync(m_levelsDictionary[levelToLoad].m_Asset, LoadSceneMode.Additive, false);
 
             yield return environment;
 
