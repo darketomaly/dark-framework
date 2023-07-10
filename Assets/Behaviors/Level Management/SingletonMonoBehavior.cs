@@ -9,7 +9,7 @@ namespace DarkFramework
         public static T Instance;
         protected bool m_Initialized;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (Instance)
             {

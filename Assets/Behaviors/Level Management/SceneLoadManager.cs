@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -9,27 +10,45 @@ namespace DarkFramework
 {
     public class SceneLoadManager : SingletonMonoBehavior<SceneLoadManager>
     {
-        public AssetReference m_Playground;
-        public AssetReference m_Landing;
+        public AssetReference m_Logic;
+        
+        public Level[] m_Levels;
 
-        [ContextMenu("Load Playground")]
-        public void LoadScene()
+        private readonly Dictionary<LeveLReference, Level> m_levelsDictionary = new();
+
+        protected override void Awake()
         {
-            StartCoroutine(IELoadScene());
+            base.Awake();
+
+            foreach (Level level in m_Levels)
+            {
+                m_levelsDictionary.Add(level.m_Name, level);
+            }
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                LoadScene();
+                if (SceneManager.GetActiveScene().name == LeveLReference.Playground.ToString())
+                {
+                    LoadScene(LeveLReference.Landing);
+                }
+                else
+                {
+                    LoadScene(LeveLReference.Playground);
+                }
             }
         }
-
-        private IEnumerator IELoadScene()
+        
+        private void LoadScene(LeveLReference levelToLoad)
         {
-            AssetReference targetScene = SceneManager.GetActiveScene().name == "Landing" ? m_Playground : m_Landing;
-            AsyncOperationHandle<SceneInstance> environment = Addressables.LoadSceneAsync(targetScene, LoadSceneMode.Single, false);
+            StartCoroutine(IELoadScene(levelToLoad));
+        }
+
+        private IEnumerator IELoadScene(LeveLReference levelToLoad)
+        {
+            AsyncOperationHandle<SceneInstance> environment = Addressables.LoadSceneAsync(m_levelsDictionary[levelToLoad].m_Asset, LoadSceneMode.Single, false);
 
             yield return environment;
 
