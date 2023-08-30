@@ -15,6 +15,7 @@ namespace DarkFramework
         public Level[] m_Levels;
 
         private readonly Dictionary<LeveLReference, Level> m_levelsDictionary = new();
+        private Level m_currentLevel;
 
         protected override void Awake()
         {
@@ -58,8 +59,8 @@ namespace DarkFramework
             
             //Make this a try catch, in case addressables can't be loaded
             //So we can display an error if so
-            
-            AsyncOperationHandle<SceneInstance> environment = Addressables.LoadSceneAsync(m_levelsDictionary[levelToLoad].m_Asset, LoadSceneMode.Additive, false);
+
+            AsyncOperationHandle<SceneInstance> environment = Addressables.LoadSceneAsync(m_levelsDictionary[levelToLoad].m_Asset, LoadSceneMode.Single, false);
 
             yield return environment;
 
