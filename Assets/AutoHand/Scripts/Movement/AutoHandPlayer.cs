@@ -5,6 +5,7 @@ using Autohand.Demo;
 using System;
 using NaughtyAttributes;
 using UnityEngine.Serialization;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -14,6 +15,8 @@ namespace Autohand {
         snap,
         smooth
     }
+
+    public delegate void AutoHandPlayerEvent(AutoHandPlayer player);
 
     [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(CapsuleCollider)), DefaultExecutionOrder(1)]
     [HelpURL("https://app.gitbook.com/s/5zKO0EvOjzUDeT2aiFk3/auto-hand-3.1/auto-hand-player")]
@@ -144,6 +147,12 @@ namespace Autohand {
         public LayerMask platformingLayerMask = ~0;
 
 
+
+        public AutoHandPlayerEvent OnSnapTurn;
+        public AutoHandPlayerEvent OnTeleported;
+        
+        
+        
         float movementDeadzone = 0.1f;
         float turnDeadzone = 0.4f;
 
@@ -487,7 +496,7 @@ namespace Autohand {
             var deltaHandPos = handRight.transform.position - startRightHandPos;
             if(pushRight.Count > 0)
                 handRight.transform.position -= deltaHandPos;
-            else if(handRight.body.SweepTest(deltaHandPos, out var hitRight, deltaHandPos.magnitude)) {
+            else if(handRight.body.SweepTest(deltaHandPos, out var hitRight, deltaHandPos.magnitude, QueryTriggerInteraction.Ignore)) {
                 if(handRight.holdingObj == null || (hitRight.rigidbody != handRight.holdingObj.body && !handRight.holdingObj.jointedBodies.Contains(hitRight.rigidbody)))
                     if(handLeft.holdingObj == null || (hitRight.rigidbody != handLeft.holdingObj.body && !handLeft.holdingObj.jointedBodies.Contains(hitRight.rigidbody)))
                         handRight.transform.position -= deltaHandPos;
@@ -495,7 +504,7 @@ namespace Autohand {
             deltaHandPos = handLeft.transform.position - startLeftHandPos;
             if(pushLeft.Count > 0)
                 handLeft.transform.position -= deltaHandPos;
-            else if(handLeft.body.SweepTest(deltaHandPos, out var hitLeft, deltaHandPos.magnitude)) {
+            else if(handLeft.body.SweepTest(deltaHandPos, out var hitLeft, deltaHandPos.magnitude, QueryTriggerInteraction.Ignore)) {
                 if(handRight.holdingObj == null || (hitLeft.rigidbody != handRight.holdingObj.body && !handRight.holdingObj.jointedBodies.Contains(hitLeft.rigidbody)))
                     if(handLeft.holdingObj == null || (hitLeft.rigidbody != handLeft.holdingObj.body && !handLeft.holdingObj.jointedBodies.Contains(hitLeft.rigidbody)))
                         handLeft.transform.position -= deltaHandPos;
@@ -527,7 +536,6 @@ namespace Autohand {
                 else {
                     for(int y = -80; y <= 80; y += 40) {
                         var newDirection = Quaternion.Euler(0, y, 0) * direction;
-                        Debug.DrawLine(transform.position, transform.position + newDirection.normalized * 0.1f, Color.yellow);
 
                         if(!Physics.CheckCapsule(
                             newDirection * 0.1f * delta + scale * transform.position + Vector3.up * scale * bodyCapsule.radius,
@@ -573,11 +581,13 @@ namespace Autohand {
                     targetPosOffset = Vector3.zero;
                     targetTrackedPos = new Vector3(trackingContainer.position.x, targetTrackedPos.y, trackingContainer.position.z);
 
+
                     handRight.SetMoveTo();
                     handRight.SetHandLocation(handRight.moveTo.position, handRight.moveTo.rotation);
                     handLeft.SetMoveTo();
                     handLeft.SetHandLocation(handLeft.moveTo.position, handLeft.moveTo.rotation);
 
+                    OnSnapTurn?.Invoke(this);
                     axisReset = false;
                 }
             }
@@ -959,6 +969,9 @@ namespace Autohand {
 
             var deltaRot = rotation * Quaternion.Inverse(headCamera.transform.rotation);
             trackingContainer.RotateAround(headCamera.transform.position, Vector3.up, deltaRot.eulerAngles.y);
+
+            if(deltaRot.eulerAngles.magnitude > 10f || deltaPos.magnitude > 0.5f)
+                OnTeleported?.Invoke(this);
         }
 
         public virtual void SetRotation(Quaternion rotation) {
@@ -976,6 +989,9 @@ namespace Autohand {
 
             targetPosOffset = Vector3.zero;
             targetTrackedPos = new Vector3(trackingContainer.position.x, targetTrackedPos.y, trackingContainer.position.z);
+
+            if(deltaRot.eulerAngles.magnitude > 10f)
+                OnTeleported?.Invoke(this);
         }
 
         public virtual void AddRotation(Quaternion addRotation) {
@@ -992,6 +1008,9 @@ namespace Autohand {
 
             targetPosOffset = Vector3.zero;
             targetTrackedPos = new Vector3(trackingContainer.position.x, targetTrackedPos.y, trackingContainer.position.z);
+
+            if(addRotation.eulerAngles.magnitude > 10f)
+                OnTeleported?.Invoke(this);
         }
 
         public virtual void Recenter() {
@@ -1009,7 +1028,7 @@ namespace Autohand {
         }
 
         public bool IsHolding(Grabbable grab) {
-            return handRight.GetHeld() == grab || handRight.GetHeld() == grab;
+            return handRight.GetHeld() == grab || handLeft.GetHeld() == grab;
         }
 
         Vector3 AlterDirection(Vector3 moveAxis) {

@@ -31,6 +31,10 @@ namespace Autohand {
 
 
         [ShowIf("showAdvanced")]
+        [Tooltip("Any layers in this mask will be removed from the spherecast checking if a grab is possible: " +
+            "IMPORTANT!!! This does not only apply to grabbables, any layers included in  this mask will be completely ignored meaning the hand can grab and highlight objects through with these layers")]
+        public LayerMask ignoreGrabCheckLayers;
+
         [Tooltip("Whether the hand should go to the object and come back on grab, or the object to float to the hand on grab. Will default to HandToGrabbable for objects that have \"parentOnGrab\" disabled")]
         public GrabType grabType = GrabType.HandToGrabbable;
 
@@ -125,6 +129,7 @@ namespace Autohand {
         float grabTime;
         Vector3 grabReturnPositionDistance;
         Quaternion grabReturnRotationDistance;
+        LayerMask handCollisionMask;
 
         Coroutine _grabRoutine;
         Coroutine grabRoutine {
@@ -154,7 +159,9 @@ namespace Autohand {
             }
 
             handLayers = LayerMask.GetMask(rightHandLayerName, leftHandLayerName, "HandPlayer");
-            
+            handIgnoreCollisionLayers = AutoHandExtensions.GetPhysicsLayerMask(LayerMask.NameToLayer(rightHandLayerName)) & AutoHandExtensions.GetPhysicsLayerMask(LayerMask.NameToLayer(leftHandLayerName));
+
+
             base.Awake();
 
             if(enableMovement) {
@@ -270,7 +277,7 @@ namespace Autohand {
             }
 
             else if(!grabbing && holdingObj == null) {
-                if(HandClosestHit(out RaycastHit closestHit, out Grabbable grabbable, reachDistance, ~handLayers) != Vector3.zero && grabbable != null) {
+                if(HandClosestHit(out RaycastHit closestHit, out Grabbable grabbable, reachDistance, ~(handLayers | ignoreGrabCheckLayers.value)) != Vector3.zero && grabbable != null) {
                     var newGrabType = this.grabType;
                     if(grabbable.grabType != HandGrabType.Default)
                         newGrabType = grabbable.grabType == HandGrabType.GrabbableToHand ? GrabType.GrabbableToHand : GrabType.HandToGrabbable;
@@ -525,7 +532,7 @@ namespace Autohand {
             if(usingHighlight && highlightLayers != 0 && holdingObj == null && !IsGrabbing()) {
                 int grabbingLayer = LayerMask.NameToLayer(grabbingLayerName);
                 int gabbingMask = LayerMask.GetMask(grabbingLayerName);
-                int overlapCount = Physics.OverlapSphereNonAlloc(palmTransform.position + palmTransform.forward * reachDistance / 2f, reachDistance, highlightCollidersNonAlloc, highlightLayers);
+                int overlapCount = Physics.OverlapSphereNonAlloc(palmTransform.position + palmTransform.forward * reachDistance / 2f, reachDistance, highlightCollidersNonAlloc, highlightLayers & ~(ignoreGrabCheckLayers.value));
                 foundGrabbables.Clear();
 
                 Grabbable grab;
@@ -537,7 +544,7 @@ namespace Autohand {
                 }
 
                 if(foundGrabbables.Count > 0) {
-                    Vector3 dir = HandClosestHit(out highlightHit, out Grabbable newLookingAtObj, reachDistance, ~handLayers);
+                    Vector3 dir = HandClosestHit(out highlightHit, out Grabbable newLookingAtObj, reachDistance, ~(handLayers | ignoreGrabCheckLayers.value));
 
                     //Zero means it didn't hit
                     if(dir != Vector3.zero && (newLookingAtObj != null && newLookingAtObj.CanGrab(this))) {

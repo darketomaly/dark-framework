@@ -74,12 +74,10 @@ public class XRHandOffset : MonoBehaviour {
 
     void DeviceConnected(InputDevice inputDevice) {
         if (inputDevice.characteristics != 0){
-            Debug.Log("Devices Count: " + devices.Length, this);
             foreach (var device in devices){
                 if (offsetDone)
                     break;
 
-                Debug.Log("Device Names Count: " + device.deviceNames.Length, this);
                 for (int i = 0; i < device.deviceNames.Length; i++){
                     Debug.Log(inputDevice.name, this);
                     if (inputDevice.name.Contains(device.deviceNames[i])){

@@ -58,7 +58,7 @@ namespace Autohand{
 
         public List<Hand> posingHands { get; protected set; }
 
-        protected virtual void Awake() {
+        protected virtual void Awake()  {
             posingHands = new List<Hand>();
             if (poseScriptable != null)
             {
@@ -234,6 +234,45 @@ namespace Autohand{
             contrainer.transform.position = relativeTo.transform.position;
             contrainer.transform.rotation = relativeTo.transform.rotation;
             handCopy.transform.parent = contrainer.transform;
+            if(hand.poseIndex != poseIndex)
+                handCopy.RelaxHand();
+
+            if(handCopy.transform.parent.GetComponentInChildren<MeshRenderer>()  == null && handCopy.transform.parent.GetComponentInChildren<SkinnedMeshRenderer>()  == null) {
+
+                foreach(Finger finger in handCopy.fingers) {
+                    for(int i = -1; i < finger.FingerJoints.Length; i++) {
+                        Transform fingerTransform = null;
+                        Transform childFingerTranform = null;
+                        if(i == -1) {
+
+                            fingerTransform = finger.FingerJoints[i+1].parent;
+                            childFingerTranform = finger.FingerJoints[i+1];
+                        }
+                        else if(i < finger.FingerJoints.Length-1) {
+                            fingerTransform = finger.FingerJoints[i];
+                            childFingerTranform = finger.FingerJoints[i+1];
+                        }
+                        else if(finger.FingerJoints[i].childCount > 0) {
+                            fingerTransform = finger.FingerJoints[i];
+                            childFingerTranform = finger.tip;
+                        }
+
+                        if(childFingerTranform == null || fingerTransform == null)
+                            continue;
+
+                        float distance = Vector3.Distance(fingerTransform.position, childFingerTranform.position);
+                        Vector3 direction = (fingerTransform.position - childFingerTranform.position).normalized;
+
+                        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        cube.transform.position = childFingerTranform.position + direction * (distance / 2);  // Offset in direction of bone
+                        cube.transform.localScale = new Vector3(finger.tipRadius*2, distance+finger.tipRadius, finger.tipRadius*2);  // Scale based on bone length
+                        cube.transform.up = direction;  // Orient cube in direction of bone
+                        cube.transform.parent = fingerTransform;
+                    }
+                }
+
+            }
+
             EditorGUIUtility.PingObject(handCopy);
             SceneView.lastActiveSceneView.FrameSelected();
         }

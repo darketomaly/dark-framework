@@ -86,6 +86,7 @@ namespace Autohand
             lineRenderer.positionCount = (int)lineSegements;
             if (inputModule.Instance != null)
                 pointerIndex = inputModule.Instance.AddPointer(this);
+            ShowRay(false);
         }
 
         void OnDisable()

@@ -112,9 +112,7 @@ namespace Autohand
 
                 if(localPosition != localTargetPosition) {
                     transform.position = connectedGrabbable.rootTransform.TransformPoint(localTargetPosition);
-                    var deltaPosition = connectedGrabbable.rootTransform.TransformDirection(localTargetPosition - localPosition);
                     jointHand.heldJoint.connectedAnchor += (localTargetPosition - localPosition);
-                    //jointHand.transform.position += deltaPosition;
                 }
 
             }

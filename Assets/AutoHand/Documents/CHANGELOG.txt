@@ -8,6 +8,7 @@ Bug Fixes
 - Fixed bug with Place Point "Destroy On Place" not working as expected
 - Fixed bug with Force Grab not working with grab poses when called immediately after an instantiate
 - Fixed bug with grab collider list not being generated properly
+- Fixed bug causing hands to flicker when using grab poses under certain conditions
 
 
 V3.2

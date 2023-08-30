@@ -267,6 +267,7 @@ namespace Autohand {
         }
 
         internal int handLayers;
+        internal int handIgnoreCollisionLayers;
 
         protected Collider palmCollider;
         protected RaycastHit highlightHit;

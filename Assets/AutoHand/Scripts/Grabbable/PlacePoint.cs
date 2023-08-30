@@ -166,18 +166,50 @@ namespace Autohand {
         void CheckPlaceObject(float radius, float scale) {
             if(!disablePlacePointOnPlace && !disableRigidbodyOnPlace && placedObject != null && !IsStillOverlapping(placedObject, scale))
                 Remove(placedObject);
-            
+
             if(placedObject == null && highlightingObj == null) {
-                var overlaps = Physics.OverlapSphereNonAlloc(placedOffset.position + transform.rotation * radiusOffset, radius * scale, collidersNonAlloc, placeLayers);
+                var overlapCenterPos = placedOffset.position + transform.rotation * radiusOffset;
+                var overlaps = Physics.OverlapSphereNonAlloc(overlapCenterPos, radius * scale, collidersNonAlloc, placeLayers);
                 if(overlaps != lastOverlapCount) {
+                    var updateOverlaps = true;
                     for(int i = 0; i < overlaps; i++) {
-                        if(AutoHandExtensions.HasGrabbable(collidersNonAlloc[i].gameObject, out tempGrabbable) && CanPlace(tempGrabbable)) {
-                            Highlight(tempGrabbable);
-                            break;
+                        if(AutoHandExtensions.HasGrabbable(collidersNonAlloc[i].gameObject, out tempGrabbable)) {
+                            // To continuously check distance & check tempGrabbable state 
+                            updateOverlaps = false;
+
+                            if(CanPlace(tempGrabbable)) {
+                                var existingPlacePoint = tempGrabbable.placePoint;
+                                if(existingPlacePoint) {
+                                    // Get positions
+                                    var grabbablePos = tempGrabbable.transform.position;
+                                    var concurrentCenterPos = existingPlacePoint.placedOffset.position +
+                                                                existingPlacePoint.transform.rotation *
+                                                                existingPlacePoint.radiusOffset;
+
+                                    // Calculate distance
+                                    var concurrentDist = Vector3.Distance(concurrentCenterPos,
+                                        grabbablePos);
+                                    var currentDist = Vector3.Distance(overlapCenterPos, grabbablePos);
+
+                                    // If current further => continue
+                                    if(currentDist >= concurrentDist) {
+                                        continue;
+                                    }
+
+                                    // Otherwise => replace
+                                    existingPlacePoint.StopHighlight(tempGrabbable);
+                                }
+
+                                Highlight(tempGrabbable);
+                                break;
+                            }
                         }
                     }
+
+                    if(updateOverlaps) {
+                        lastOverlapCount = overlaps;
+                    }
                 }
-                lastOverlapCount = overlaps;
             }
             else if(highlightingObj != null) {
                 if(!IsStillOverlapping(highlightingObj, scale)) {
@@ -188,9 +220,14 @@ namespace Autohand {
 
         public virtual bool CanPlace(Grabbable placeObj) {
 
+
             if(placedObject != null) {
                 return false;
             }
+
+            //if(placeObj.placePoint != null && placeObj.placePoint != this) {
+            //    return false;
+            //}
 
             if(heldPlaceOnly && placeObj.HeldCount() == 0) {
                 return false;

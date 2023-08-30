@@ -38,6 +38,8 @@ namespace Autohand{
         [SerializeField]
         [HideInInspector]
         Transform[] fingerJoints;
+
+        public Transform[] FingerJoints { get { return fingerJoints; } }
         
         float lastHitBend;
 
