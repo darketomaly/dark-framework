@@ -13,13 +13,13 @@ namespace DarkFramework
         {
             if (m_Initialized)
             {
-                transform.GetChild(0).gameObject.SetActive(true);
+                //transform.GetChild(0).gameObject.SetActive(true);
             }
         }
 
         public void Teleport(Vector3 floorPosition)
         {
-            transform.GetChild(0).position = floorPosition + Vector3.up;
+            //transform.GetChild(0).position = floorPosition + Vector3.up;
         }
     }
 }
