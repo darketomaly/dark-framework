@@ -65,6 +65,7 @@ namespace DarkFramework
                 yield return 0;
                 
                 loadingScene.Result.ActivateAsync();
+                OnSceneLoaded?.Invoke(LeveLReference.Loading);
                 OVRScreenFade.instance.FadeIn();
                 
                 yield return 0;
@@ -99,10 +100,10 @@ namespace DarkFramework
                 
                 yield return 0;
                 yield return environment.Result.ActivateAsync();
+                OnSceneLoaded?.Invoke(levelToLoad);
                 yield return 0;
                 Addressables.UnloadSceneAsync(loadingScene);
                 
-                OnSceneLoaded?.Invoke(levelToLoad);
                 OVRScreenFade.instance.FadeIn();
             }
         }

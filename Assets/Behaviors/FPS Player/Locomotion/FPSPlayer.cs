@@ -1,3 +1,4 @@
+using Autohand;
 using UnityEngine;
 
 namespace DarkFramework
@@ -9,6 +10,7 @@ namespace DarkFramework
     {
         public Transform m_CenterEyeAnchor;
         public Transform m_TrackerOffsets;
+        public AutoHandPlayer m_Player;
 
         private void OnEnable()
         {
@@ -23,6 +25,13 @@ namespace DarkFramework
         private void OnSceneLoaded(LeveLReference levelLoaded)
         {
             m_TrackerOffsets.rotation = Quaternion.identity;
+
+            if (levelLoaded is LeveLReference.Loading or LeveLReference.Splash)
+            {
+                m_Player.body.isKinematic = true;
+                transform.position = Vector3.zero;
+                m_Player.body.transform.position = Vector3.zero;
+            }
         }
 
         private void Start()
@@ -35,7 +44,9 @@ namespace DarkFramework
 
         public void Teleport(Vector3 floorPosition)
         {
-            //transform.GetChild(0).position = floorPosition + Vector3.up;
+            m_Player.body.isKinematic = true;
+            transform.position = floorPosition + Vector3.up;
+            m_Player.body.isKinematic = false;
         }
     }
 }
