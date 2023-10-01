@@ -1,4 +1,3 @@
-using Oculus.Interaction;
 using UnityEngine;
 
 namespace DarkFramework
@@ -13,11 +12,6 @@ namespace DarkFramework
         private void Start()
         {
             m_Canvas.gameObject.SetActive(true);
-        }
-
-        private void Update()
-        {
-            m_Transform.position = m_FpsPlayer.m_CenterEyeAnchor.position;
         }
 
         void FixedUpdate()

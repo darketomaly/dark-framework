@@ -8,7 +8,7 @@ namespace DarkFramework
     public class FPSPlayer : SingletonMonoBehavior<FPSPlayer>
     {
         public Transform m_CenterEyeAnchor;
-        
+
         private void Start()
         {
             if (m_Initialized)
