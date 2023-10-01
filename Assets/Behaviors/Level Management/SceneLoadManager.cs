@@ -29,17 +29,17 @@ namespace DarkFramework
 
         private void Update()
         {
-            //if (Input.GetKeyDown(KeyCode.Space))
-            //{
-            //    if (SceneManager.GetActiveScene().name == LeveLReference.Playground.ToString())
-            //    {
-            //        LoadScene(LeveLReference.Landing);
-            //    }
-            //    else
-            //    {
-            //        LoadScene(LeveLReference.Playground);
-            //    }
-            //}
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (SceneManager.GetActiveScene().name == LeveLReference.Playground.ToString())
+                {
+                    LoadScene(LeveLReference.Landing);
+                }
+                else
+                {
+                    LoadScene(LeveLReference.Playground);
+                }
+            }
         }
         
         private void LoadScene(LeveLReference levelToLoad)

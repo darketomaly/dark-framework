@@ -14,8 +14,9 @@ namespace DarkFramework
             m_Canvas.gameObject.SetActive(true);
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
+            m_Transform.position = m_FpsPlayer.m_CenterEyeAnchor.position;
             m_Transform.rotation = Quaternion.Lerp(m_Transform.rotation, m_FpsPlayer.m_CenterEyeAnchor.rotation, 5.0f * Time.deltaTime);
         }
     }
