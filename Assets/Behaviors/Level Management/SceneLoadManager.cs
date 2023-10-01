@@ -10,8 +10,6 @@ namespace DarkFramework
 {
     public class SceneLoadManager : SingletonMonoBehavior<SceneLoadManager>
     {
-        public AssetReference m_Logic;
-        
         public Level[] m_Levels;
 
         private readonly Dictionary<LeveLReference, Level> m_levelsDictionary = new();

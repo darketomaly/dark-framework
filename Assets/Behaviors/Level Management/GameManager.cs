@@ -1,15 +1,17 @@
-using DarkFramework;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace DarkFramework
 {
-    public FPSPlayer m_FpsPlayer;
-
-    private void Awake()
+    public class GameManager : MonoBehaviour
     {
-        if (FPSPlayer.Instance)
+        public FPSPlayer m_FpsPlayer;
+
+        private void Awake()
         {
-            //Destroy(m_FpsPlayer);
+            if (!FPSPlayer.Instance)
+            {
+                Instantiate(m_FpsPlayer);
+            }
         }
     }
 }
