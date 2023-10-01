@@ -32,6 +32,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3897055f6451ea14aba5651d4bb574b3
+    m_Address: Assets/Behaviors/World/Loading.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 490580fd31f2fe9488718564910efe5e, type: 2}
   m_SchemaSet:

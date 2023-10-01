@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.03948897, g: 0.03948897, b: 0.03948897, a: 1}
+  m_IndirectSpecularColor: {r: 0.03948884, g: 0.03948884, b: 0.03948884, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 1adae8f4d2a27b8499eb271d4e0ec62f, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 0ccd806b62c559341b03b1b6f21b6241, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -263,6 +263,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6682980405645894833, guid: fa83818f972565b419b7fb03b2b10e06, type: 3}
   m_PrefabInstance: {fileID: 1015119546}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1015119548 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6778099098792051513, guid: fa83818f972565b419b7fb03b2b10e06, type: 3}
+  m_PrefabInstance: {fileID: 1015119546}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a743740483e1bc34899770515fd75b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1020206527
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +377,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1165835611}
+  - component: {fileID: 1165835612}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -391,6 +403,19 @@ Transform:
   - {fileID: 1015119547}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1165835612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165835610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3753e60edbfea42989ff9ef110f688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FpsPlayer: {fileID: 1015119548}
 --- !u!1 &1607017491
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,10 +593,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1165835611}
     m_Modifications:
-    - target: {fileID: 1020946927935642572, guid: 23eb688ddb30f5a4f9f1f2dcc7a0593a, type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 1020946927935642572, guid: 23eb688ddb30f5a4f9f1f2dcc7a0593a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

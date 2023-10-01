@@ -11,8 +11,8 @@ namespace DarkFramework
 
     public enum LeveLReference
     {
-        Landing,
-        Playground,
-        Tutorial
+        Splash,
+        Loading,
+        Playground
     }
 }

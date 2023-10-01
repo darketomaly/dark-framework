@@ -13,7 +13,8 @@ namespace DarkFramework
         {
             if (m_Initialized)
             {
-                //transform.GetChild(0).gameObject.SetActive(true);
+                //GetComponentInChildren<OVRManager>().enabled = true;
+                //GetComponentInChildren<OVRCameraRig>().enabled = true;   
             }
         }
 
