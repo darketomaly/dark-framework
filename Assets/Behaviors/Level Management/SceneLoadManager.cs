@@ -55,12 +55,18 @@ namespace DarkFramework
         {
             AsyncOperationHandle<SceneInstance> loadingScene = Addressables.LoadSceneAsync(m_levelsDictionary[LeveLReference.Loading].m_Asset, LoadSceneMode.Additive, false);
 
+            OVRScreenFade.instance.FadeOut();
+            yield return new WaitForSeconds(2);
+            
             yield return loadingScene;
 
             if (loadingScene.Status == AsyncOperationStatus.Succeeded)
             {
                 yield return 0;
+                
                 loadingScene.Result.ActivateAsync();
+                OVRScreenFade.instance.FadeIn();
+                
                 yield return 0;
                 
                 if (SceneManager.GetActiveScene().name == LeveLReference.Splash.ToString())
@@ -78,10 +84,13 @@ namespace DarkFramework
                 yield break;
             }
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(3); //fake loading time
             
             AsyncOperationHandle<SceneInstance> environment = Addressables.LoadSceneAsync(m_levelsDictionary[levelToLoad].m_Asset, LoadSceneMode.Additive, false);
 
+            OVRScreenFade.instance.FadeOut();
+            yield return new WaitForSeconds(2);
+            
             yield return environment;
 
             if (environment.Status == AsyncOperationStatus.Succeeded)
@@ -92,6 +101,8 @@ namespace DarkFramework
                 yield return environment.Result.ActivateAsync();
                 yield return 0;
                 Addressables.UnloadSceneAsync(loadingScene);
+                
+                OVRScreenFade.instance.FadeIn();
             }
         }
     }
