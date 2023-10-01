@@ -46,10 +46,17 @@ namespace DarkFramework
         
         private void LoadScene(LeveLReference levelToLoad)
         {
-            StartCoroutine(IELoadScene(levelToLoad));
+            if (m_loadingSceneCoroutine != null)
+            {
+                Debug.LogError($"<color=olive>Tried to load {levelToLoad}, but there's an active loading coroutine!</color>");
+                return;
+            }
+            
+            m_loadingSceneCoroutine = StartCoroutine(IELoadScene(levelToLoad));
         }
 
-        private SceneInstance m_lastActivatedScene; 
+        private SceneInstance m_lastActivatedScene;
+        private Coroutine m_loadingSceneCoroutine;
 
         private IEnumerator IELoadScene(LeveLReference levelToLoad)
         {
@@ -106,6 +113,8 @@ namespace DarkFramework
                 
                 OVRScreenFade.instance.FadeIn();
             }
+
+            m_loadingSceneCoroutine = null;
         }
     }
 }

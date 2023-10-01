@@ -14,12 +14,22 @@ namespace DarkFramework
 
         private void OnEnable()
         {
-            SceneLoadManager.Instance.OnSceneLoaded += OnSceneLoaded;
+            if (SceneLoadManager.Instance)
+            {
+                SceneLoadManager.Instance.OnSceneLoaded += OnSceneLoaded;
+            }
+            else
+            {
+                Teleport(transform.position);
+            }
         }
         
         private void OnDisable()
         {
-            SceneLoadManager.Instance.OnSceneLoaded -= OnSceneLoaded;
+            if (SceneLoadManager.Instance)
+            {
+                SceneLoadManager.Instance.OnSceneLoaded -= OnSceneLoaded;
+            }
         }
 
         private void OnSceneLoaded(LeveLReference levelLoaded)
@@ -44,9 +54,9 @@ namespace DarkFramework
 
         public void Teleport(Vector3 floorPosition)
         {
-            m_Player.body.isKinematic = true;
+            m_Player.GetComponent<Rigidbody>().isKinematic = true;
             transform.position = floorPosition + Vector3.up;
-            m_Player.body.isKinematic = false;
+            m_Player.GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 }
