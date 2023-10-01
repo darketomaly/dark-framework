@@ -8,13 +8,28 @@ namespace DarkFramework
     public class FPSPlayer : SingletonMonoBehavior<FPSPlayer>
     {
         public Transform m_CenterEyeAnchor;
+        public Transform m_TrackerOffsets;
+
+        private void OnEnable()
+        {
+            SceneLoadManager.Instance.OnSceneLoaded += OnSceneLoaded;
+        }
+        
+        private void OnDisable()
+        {
+            SceneLoadManager.Instance.OnSceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(LeveLReference levelLoaded)
+        {
+            m_TrackerOffsets.rotation = Quaternion.identity;
+        }
 
         private void Start()
         {
             if (m_Initialized)
             {
-                //GetComponentInChildren<OVRManager>().enabled = true;
-                //GetComponentInChildren<OVRCameraRig>().enabled = true;   
+
             }
         }
 

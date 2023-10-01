@@ -338,7 +338,7 @@ PrefabInstance:
       addedObject: {fileID: 8010266325683849870}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 297602103752395642, guid: 4854c80cf48d01e44bfe786e8cf18e3a, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 6778099098792051513}
   m_SourcePrefab: {fileID: 100100000, guid: 4854c80cf48d01e44bfe786e8cf18e3a, type: 3}
 --- !u!4 &2760964794648236569 stripped
@@ -349,6 +349,11 @@ Transform:
 --- !u!4 &3970902944358980563 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8035697153381282841, guid: 4854c80cf48d01e44bfe786e8cf18e3a, type: 3}
+  m_PrefabInstance: {fileID: 6386100749771304906}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6682980404082577793 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 297602102228975179, guid: 4854c80cf48d01e44bfe786e8cf18e3a, type: 3}
   m_PrefabInstance: {fileID: 6386100749771304906}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6682980405645894832 stripped
@@ -369,6 +374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CenterEyeAnchor: {fileID: 3970902944358980563}
+  m_TrackerOffsets: {fileID: 6682980404082577793}
 --- !u!4 &6682980405645894833 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 297602103752395643, guid: 4854c80cf48d01e44bfe786e8cf18e3a, type: 3}

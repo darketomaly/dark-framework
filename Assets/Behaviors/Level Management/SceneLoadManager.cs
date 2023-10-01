@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace DarkFramework
     public class SceneLoadManager : SingletonMonoBehavior<SceneLoadManager>
     {
         public Level[] m_Levels;
+        public Action<LeveLReference> OnSceneLoaded;
 
         private readonly Dictionary<LeveLReference, Level> m_levelsDictionary = new();
         private Level m_currentLevel;
@@ -100,6 +102,7 @@ namespace DarkFramework
                 yield return 0;
                 Addressables.UnloadSceneAsync(loadingScene);
                 
+                OnSceneLoaded?.Invoke(levelToLoad);
                 OVRScreenFade.instance.FadeIn();
             }
         }
